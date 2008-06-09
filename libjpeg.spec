@@ -155,9 +155,13 @@ cp jpegint.h %buildroot%{_includedir}/jpegint.h
 install -m 755 jpegexiforient %{buildroot}%{_bindir}
 install -m 755 exifautotran %{buildroot}%{_bindir}
 
+%if %mdkversion < 200900
 %post -n %{lib_name} -p /sbin/ldconfig
+%endif
 
+%if %mdkversion < 200900
 %postun -n %{lib_name} -p /sbin/ldconfig
+%endif
 
 %clean
 rm -rf %buildroot
