@@ -1,6 +1,6 @@
 %define name	libjpeg
 %define	version	6b
-%define release %mkrel 42
+%define release %mkrel 43
 
 %define lib_major	62
 %define lib_name_orig	libjpeg
