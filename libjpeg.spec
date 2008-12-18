@@ -1,6 +1,6 @@
 %define name	libjpeg
 %define	version	6b
-%define release %mkrel 43
+%define release %mkrel 44
 
 %define lib_major	62
 %define lib_name_orig	libjpeg
@@ -34,7 +34,7 @@ Patch2:		jpeg-6b-c++fixes.patch
 # Use autoconf variables to know libdir et al.
 Patch3:		jpeg-6b-autoconf-vars.patch
 
-Buildroot:	%_tmppath/%name-%version-%release-root
+BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-buildroot
 BuildRequires:	libtool
 
 %description
