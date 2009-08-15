@@ -1,20 +1,14 @@
-%define name	libjpeg
-%define	version	6b
-%define release %mkrel 44
-
-%define lib_major	62
-%define lib_name_orig	libjpeg
-%define lib_name	%mklibname jpeg %{lib_major}
+%define major 7
+%define libname %mklibname jpeg %{major}
 
 Summary:	A library for manipulating JPEG image format files
-Name:		%name
-Version:	%version
-Release:	%release
+Name:		libjpeg
+Version:	7
+Release:	%mkrel 1
 License:	GPL-like
 Group:		System/Libraries
 URL:		http://www.ijg.org/
-
-Source0:	ftp://ftp.uu.net/graphics/jpeg/jpegsrc.v6b.tar.bz2
+Source0:	ftp://ftp.uu.net/graphics/jpeg/jpegsrc.v7.tar.gz
 # Modified source files for lossless cropping of JPEG files and for
 # lossless pasting of one JPEG into another (dropping). In addition a
 # bug in the treatment of EXIF data is solved and the EXIF data is
@@ -27,15 +21,10 @@ Source1:	http://jpegclub.org/droppatch.tar.bz2
 # applying these programs again.
 Source2:	http://jpegclub.org/jpegexiforient.c
 Source3:	http://jpegclub.org/exifautotran.txt
-
-Patch0:		libjpeg-6b-arm.patch
-Patch1:		libjpeg-ia64-acknowledge.patch
-Patch2:		jpeg-6b-c++fixes.patch
-# Use autoconf variables to know libdir et al.
-Patch3:		jpeg-6b-autoconf-vars.patch
-
-BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-buildroot
+Patch0:		jpeg-6b-c++fixes.patch
+Patch1:		jpeg-7-missing_arithmetic_functions.diff
 BuildRequires:	libtool
+BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-buildroot
 
 %description
 The libjpeg package contains a shared library of functions for loading,
@@ -44,26 +33,27 @@ manipulating and saving JPEG format image files.
 Install the libjpeg package if you need to manipulate JPEG files. You
 should also install the jpeg-progs package.
 
-%package -n %{lib_name}
-Summary: A library for manipulating JPEG image format files
-Group: System/Libraries
-Obsoletes:	%name
-Provides:       %{name} = %{version}-%{release}
+%package -n	%{libname}
+Summary:	A library for manipulating JPEG image format files
+Group:		System/Libraries
+Obsoletes:	%{name}
+Provides:	%{name} = %{version}-%{release}
 
-%description -n %{lib_name}
+%description -n %{libname}
 This package contains the library needed to run programs dynamically
 linked with libjpeg.
 
-
-%package -n %{lib_name}-devel
+%package -n	%{libname}-devel
 Summary:	Development tools for programs which will use the libjpeg library
 Group:		Development/C
-Requires:	%{lib_name} = %{version}
+Requires:	%{libname} = %{version}
 Provides:	jpeg-devel = %{version}-%{release}
-Provides:	%name-devel = %{version}-%{release}
-Obsoletes:	%name-devel
+Provides:	jpeg%{major}-devel = %{version}-%{release}
+Provides:	%{name}-devel = %{version}-%{release}
+Obsoletes:	%{name}-devel
+Conflicts:	%{mklibname jpeg 62 -d}
 
-%description -n %{lib_name}-devel
+%description -n	%{libname}-devel
 The libjpeg-devel package includes the header files necessary for 
 developing programs which will manipulate JPEG files using
 the libjpeg library.
@@ -72,15 +62,16 @@ If you are going to develop programs which will manipulate JPEG images,
 you should install libjpeg-devel.  You'll also need to have the libjpeg
 package installed.
 
-
-%package -n %{lib_name}-static-devel
+%package -n	%{libname}-static-devel
 Summary:	Static libraries for programs which will use the libjpeg library
 Group:		Development/C
-Requires:	%{lib_name}-devel = %{version}-%release
-Provides:	%name-static-devel = %{version}-%{release}
+Requires:	%{libname}-devel = %{version}-%{release}
+Provides:	%{name}-static-devel = %{version}-%{release}
 Provides:	jpeg-static-devel = %{version}-%{release}
+Provides:	jpeg%{major}-static-devel = %{version}-%{release}
+Conflicts:	%{mklibname jpeg 62 -d -s}
 
-%description -n %{lib_name}-static-devel
+%description -n	%{libname}-static-devel
 The libjpeg-devel package includes the static librariesnecessary for 
 developing programs which will manipulate JPEG files using
 the libjpeg library.
@@ -89,16 +80,15 @@ If you are going to develop programs which will manipulate JPEG images,
 you should install libjpeg-devel.  You'll also need to have the libjpeg
 package installed.
 
-
-%package -n jpeg-progs
+%package -n	jpeg-progs
 Summary:	Programs for manipulating JPEG format image files
 Group:		Graphics
-Requires:	%lib_name = %{version}-%{release}
+Requires:	%{libname} = %{version}-%{release}
 Provides:	jpeg-progs = %{version}-%{release}
 Provides:	libjpeg-progs = %{version}-%{release}
 Obsoletes:	libjpeg-progs
 
-%description -n jpeg-progs
+%description -n	jpeg-progs
 The jpeg-progs package contains simple client programs for accessing 
 the libjpeg functions.  Libjpeg client programs include cjpeg, djpeg, 
 jpegtran, rdjpgcom and wrjpgcom.  Cjpeg compresses an image file into JPEG
@@ -108,85 +98,68 @@ any text comments included in a JPEG file.  Wrjpgcom inserts text
 comments into a JPEG file.
 
 %prep
-%setup -q -n jpeg-6b
-%setup -q -T -D -a 1 -n jpeg-6b
+
+%setup -q -n jpeg-7 -a1
 rm -f jpegtran
-%patch0 -p1 
-%patch1 -p1
-%patch2 -p1
-%patch3 -p1
-cp `which libtool` .
+%patch0 -p0
+%patch1 -p0
 
 cp %{SOURCE2} jpegexiforient.c
 cp %{SOURCE3} exifautotran
 
 %build
-%configure --prefix=%{_prefix} \
-	   --enable-shared \
-	   --enable-static \
-	   --disable-rpath
-
-#cat > have_stdlib.sed <<\EOF
-#s/#define HAVE_STDLIB_H/#ifndef HAVE_STDLIB_H\
-#&\
-#endif/g
-#EOF
-#sed -f have_stdlib.sed jconfig.h > jconfig.tmp && mv jconfig.tmp jconfig.h
-#rm -f have_stdlib.sed
-#perl -pi -e 's,hardcode_libdir_flag_spec=",#hardcode_libdir_flag_spec=",;' libtool
+%configure2_5x \
+    --disable-silent-rules \
+    --enable-shared \
+    --enable-static
 
 %make
-%ifnarch armv4l
-#FIX MEEE: we know this will fail on arm
-LD_LIBRARY_PATH=$PWD make test
-%endif
 
-gcc $CFLAGS -o jpegexiforient jpegexiforient.c
+gcc %{optflags} -o jpegexiforient jpegexiforient.c
+
+LD_PRELOAD=$PWD/.libs/%{name}.so make test
 
 %install
-rm -rf %buildroot
-mkdir -p %buildroot/{%{_bindir},%{_libdir},%{_includedir},%{_mandir}/man1}
+rm -rf %{buildroot}
+
+mkdir -p %{buildroot}/{%{_bindir},%{_libdir},%{_includedir},%{_mandir}/man1}
 
 #(neoclust) Provide jpegint.h because it is needed softwares
-cp jpegint.h %buildroot%{_includedir}/jpegint.h
+cp jpegint.h %{buildroot}%{_includedir}/jpegint.h
 
-%makeinstall mandir=%buildroot/%{_mandir}/man1
+%makeinstall mandir=%{buildroot}%{_mandir}/man1
 
 install -m 755 jpegexiforient %{buildroot}%{_bindir}
 install -m 755 exifautotran %{buildroot}%{_bindir}
 
 %if %mdkversion < 200900
-%post -n %{lib_name} -p /sbin/ldconfig
+%post -n %{libname} -p /sbin/ldconfig
 %endif
 
 %if %mdkversion < 200900
-%postun -n %{lib_name} -p /sbin/ldconfig
+%postun -n %{libname} -p /sbin/ldconfig
 %endif
 
 %clean
-rm -rf %buildroot
+rm -rf %{buildroot}
 
-%files -n %{lib_name}
+%files -n %{libname}
 %defattr(-,root,root)
-%doc README change.log
+%doc README change.log coderules.txt filelist.txt install.txt jconfig.txt libjpeg.txt structure.txt usage.txt wizard.txt
 %{_libdir}/lib*.so.*
 
-%files -n %{lib_name}-devel
+%files -n %{libname}-devel
 %defattr(-,root,root)
-%doc README usage.doc change.log wizard.doc coderules.doc libjpeg.doc structure.doc example.c
+%doc example.c
 %{_libdir}/*.so
 %{_includedir}/*.h
 %{_libdir}/*.la
 
-%files -n %{lib_name}-static-devel
+%files -n %{libname}-static-devel
 %defattr(-,root,root)
-%doc README 
 %{_libdir}/*.a
 
 %files -n jpeg-progs
 %defattr(-,root,root)
-%doc README change.log
 %{_bindir}/*
 %{_mandir}/man1/*
-
-
