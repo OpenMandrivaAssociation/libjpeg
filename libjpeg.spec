@@ -1,10 +1,12 @@
 %define major 7
 %define libname %mklibname jpeg %{major}
+%define develname %mklibname -d jpeg %{major}
+%define staticname %mklibname -s -d jpeg %{major}
 
 Summary:	A library for manipulating JPEG image format files
 Name:		libjpeg
 Version:	7
-Release:	%mkrel 3
+Release:	%mkrel 2
 License:	GPL-like
 Group:		System/Libraries
 URL:		http://www.ijg.org/
@@ -43,7 +45,7 @@ Provides:	%{name} = %{version}-%{release}
 This package contains the library needed to run programs dynamically
 linked with libjpeg.
 
-%package -n	%{libname}-devel
+%package -n	%{develname}
 Summary:	Development tools for programs which will use the libjpeg library
 Group:		Development/C
 Requires:	%{libname} = %{version}
@@ -54,7 +56,7 @@ Obsoletes:	%{name}-devel
 Conflicts:	jpeg6-devel
 Obsoletes:	%{mklibname jpeg 62 -d} < 6b-45
 
-%description -n	%{libname}-devel
+%description -n	%{develname}
 The libjpeg-devel package includes the header files necessary for 
 developing programs which will manipulate JPEG files using
 the libjpeg library.
@@ -63,17 +65,17 @@ If you are going to develop programs which will manipulate JPEG images,
 you should install libjpeg-devel.  You'll also need to have the libjpeg
 package installed.
 
-%package -n	%{libname}-static-devel
+%package -n	%{staticname}
 Summary:	Static libraries for programs which will use the libjpeg library
 Group:		Development/C
-Requires:	%{libname}-devel = %{version}-%{release}
+Requires:	%{develname} = %{version}-%{release}
 Provides:	%{name}-static-devel = %{version}-%{release}
 Provides:	jpeg-static-devel = %{version}-%{release}
 Provides:	jpeg%{major}-static-devel = %{version}-%{release}
 Conflicts:	jpeg6-static-devel
-Obsoletes:	%{mklibname jpeg 62 -d -d} < 6b-45
+Obsoletes:	%{mklibname jpeg 62 -d -s} < 6b-45
 
-%description -n	%{libname}-static-devel
+%description -n	%{staticname}
 The libjpeg-devel package includes the static librariesnecessary for 
 developing programs which will manipulate JPEG files using
 the libjpeg library.
@@ -148,16 +150,16 @@ rm -rf %{buildroot}
 %files -n %{libname}
 %defattr(-,root,root)
 %doc README change.log coderules.txt filelist.txt install.txt jconfig.txt libjpeg.txt structure.txt usage.txt wizard.txt
-%{_libdir}/lib*.so.*
+%{_libdir}/libjpeg.so.%{major}*
 
-%files -n %{libname}-devel
+%files -n %{develname}
 %defattr(-,root,root)
 %doc example.c
 %{_libdir}/*.so
 %{_includedir}/*.h
 %{_libdir}/*.la
 
-%files -n %{libname}-static-devel
+%files -n %{staticname}
 %defattr(-,root,root)
 %{_libdir}/*.a
 
