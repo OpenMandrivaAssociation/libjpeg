@@ -70,7 +70,7 @@ Requires:	%{libname}-devel = %{version}-%{release}
 Provides:	%{name}-static-devel = %{version}-%{release}
 Provides:	jpeg-static-devel = %{version}-%{release}
 Provides:	jpeg%{major}-static-devel = %{version}-%{release}
-Conflicts:	jpeg6-devel
+Conflicts:	jpeg6-static-devel
 Obsoletes:	%{mklibname jpeg 62 -d -d} < 6b-45
 
 %description -n	%{libname}-static-devel
