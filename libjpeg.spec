@@ -1,12 +1,12 @@
 %define major 7
 %define libname %mklibname jpeg %{major}
-%define develname %mklibname -d jpeg %{major}
-%define staticname %mklibname -s -d jpeg %{major}
+%define develname %mklibname -d jpeg
+%define staticname %mklibname -s -d jpeg
 
 Summary:	A library for manipulating JPEG image format files
 Name:		libjpeg
 Version:	7
-Release:	%mkrel 2
+Release:	%mkrel 3
 License:	GPL-like
 Group:		System/Libraries
 URL:		http://www.ijg.org/
@@ -55,6 +55,7 @@ Provides:	%{name}-devel = %{version}-%{release}
 Obsoletes:	%{name}-devel
 Conflicts:	jpeg6-devel
 Obsoletes:	%{mklibname jpeg 62 -d} < 6b-45
+Obsoletes:	%{mklibname jpeg 7 -d} < 7-3
 
 %description -n	%{develname}
 The libjpeg-devel package includes the header files necessary for 
@@ -74,6 +75,7 @@ Provides:	jpeg-static-devel = %{version}-%{release}
 Provides:	jpeg%{major}-static-devel = %{version}-%{release}
 Conflicts:	jpeg6-static-devel
 Obsoletes:	%{mklibname jpeg 62 -d -s} < 6b-45
+Obsoletes:	%{mklibname jpeg 7 -d -s} < 7-3
 
 %description -n	%{staticname}
 The libjpeg-devel package includes the static librariesnecessary for 
