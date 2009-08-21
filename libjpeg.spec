@@ -6,7 +6,7 @@
 Summary:	A library for manipulating JPEG image format files
 Name:		libjpeg
 Version:	7
-Release:	%mkrel 3
+Release:	%mkrel 4
 License:	GPL-like
 Group:		System/Libraries
 URL:		http://www.ijg.org/
@@ -52,7 +52,7 @@ Requires:	%{libname} = %{version}
 Provides:	jpeg-devel = %{version}-%{release}
 Provides:	jpeg%{major}-devel = %{version}-%{release}
 Provides:	%{name}-devel = %{version}-%{release}
-Obsoletes:	%{name}-devel
+Obsoletes:	%{name}-devel < %{version}-%{release}
 Conflicts:	jpeg6-devel
 Obsoletes:	%{mklibname jpeg 62 -d} < 6b-45
 Obsoletes:	%{mklibname jpeg 7 -d} < 7-3
