@@ -6,7 +6,7 @@
 Summary:	A library for manipulating JPEG image format files
 Name:		libjpeg
 Version:	7
-Release:	%mkrel 4
+Release:	%mkrel 5
 License:	GPL-like
 Group:		System/Libraries
 URL:		http://www.ijg.org/
@@ -133,7 +133,7 @@ mkdir -p %{buildroot}/{%{_bindir},%{_libdir},%{_includedir},%{_mandir}/man1}
 #(neoclust) Provide jpegint.h because it is needed softwares
 cp jpegint.h %{buildroot}%{_includedir}/jpegint.h
 
-%makeinstall mandir=%{buildroot}%{_mandir}/man1
+%makeinstall mandir=%{buildroot}%{_mandir}
 
 install -m 755 jpegexiforient %{buildroot}%{_bindir}
 install -m 755 exifautotran %{buildroot}%{_bindir}
