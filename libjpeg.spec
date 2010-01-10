@@ -1,16 +1,16 @@
-%define major 7
+%define major 8
 %define libname %mklibname jpeg %{major}
 %define develname %mklibname -d jpeg
 %define staticname %mklibname -s -d jpeg
 
 Summary:	A library for manipulating JPEG image format files
 Name:		libjpeg
-Version:	7
-Release:	%mkrel 5
+Version:	8
+Release:	%mkrel 1
 License:	GPL-like
 Group:		System/Libraries
 URL:		http://www.ijg.org/
-Source0:	ftp://ftp.uu.net/graphics/jpeg/jpegsrc.v7.tar.gz
+Source0:	ftp://ftp.uu.net/graphics/jpeg/jpegsrc.v8.tar.gz
 # Modified source files for lossless cropping of JPEG files and for
 # lossless pasting of one JPEG into another (dropping). In addition a
 # bug in the treatment of EXIF data is solved and the EXIF data is
@@ -105,7 +105,7 @@ comments into a JPEG file.
 
 %prep
 
-%setup -q -n jpeg-7 -a1
+%setup -q -n jpeg-8 -a1
 rm -f jpegtran
 %patch0 -p0
 %patch1 -p0
