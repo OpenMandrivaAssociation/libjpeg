@@ -6,7 +6,7 @@
 Summary:	A library for manipulating JPEG image format files
 Name:		libjpeg
 Version:	8
-Release:	%mkrel 3
+Release:	%mkrel 4
 License:	GPL-like
 Group:		System/Libraries
 URL:		http://www.ijg.org/
