@@ -6,7 +6,7 @@
 Summary:	A library for manipulating JPEG image format files
 Name:		libjpeg
 Version:	8
-Release:	%mkrel 5
+Release:	%mkrel 6
 License:	GPL-like
 Group:		System/Libraries
 URL:		http://www.ijg.org/
@@ -16,7 +16,7 @@ Source0:	ftp://ftp.uu.net/graphics/jpeg/jpegsrc.v8.tar.gz
 # bug in the treatment of EXIF data is solved and the EXIF data is
 # adjusted according to size/dimension changes caused by rotating and
 # cropping operations
-Source1:	http://jpegclub.org/droppatch.tar.bz2
+Source1:	http://jpegclub.org/droppatch.v8.tar.gz
 # These two allow automatic lossless rotation of JPEG images from a digital
 # camera which have orientation markings in the EXIF data. After rotation
 # the orientation markings are reset to avoid duplicate rotation when
@@ -24,7 +24,6 @@ Source1:	http://jpegclub.org/droppatch.tar.bz2
 Source2:	http://jpegclub.org/jpegexiforient.c
 Source3:	http://jpegclub.org/exifautotran.txt
 Patch0:		jpeg-6b-c++fixes.patch
-Patch1:		jpeg-7-missing_arithmetic_functions.diff
 BuildRequires:	libtool
 BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-buildroot
 
@@ -107,7 +106,6 @@ comments into a JPEG file.
 %setup -q -n jpeg-8 -a1
 rm -f jpegtran
 %patch0 -p0
-%patch1 -p0
 
 cp %{SOURCE2} jpegexiforient.c
 cp %{SOURCE3} exifautotran
