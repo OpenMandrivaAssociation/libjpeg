@@ -5,12 +5,12 @@
 
 Summary:	A library for manipulating JPEG image format files
 Name:		libjpeg
-Version:	8b
+Version:	8c
 Release:	%mkrel 1
 License:	GPL-like
 Group:		System/Libraries
 URL:		http://www.ijg.org/
-Source0:	http://www.ijg.org/files/jpegsrc.v8b.tar.gz
+Source0:	http://www.ijg.org/files/jpegsrc.v8c.tar.gz
 # Modified source files for lossless cropping of JPEG files and for
 # lossless pasting of one JPEG into another (dropping). In addition a
 # bug in the treatment of EXIF data is solved and the EXIF data is
@@ -103,7 +103,7 @@ comments into a JPEG file.
 
 %prep
 
-%setup -q -n jpeg-8b -a1
+%setup -q -n jpeg-8c -a1
 rm -f jpegtran
 %patch0 -p0
 
