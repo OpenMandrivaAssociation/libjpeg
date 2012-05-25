@@ -4,12 +4,12 @@
 
 Summary:	A library for manipulating JPEG image format files
 Name:		libjpeg
-Version:	8c
-Release:	3
+Version:	8d
+Release:	1
 License:	GPL-like
 Group:		System/Libraries
 URL:		http://www.ijg.org/
-Source0:	http://www.ijg.org/files/jpegsrc.v8c.tar.gz
+Source0:	http://www.ijg.org/files/jpegsrc.v8d.tar.gz
 # Modified source files for lossless cropping of JPEG files and for
 # lossless pasting of one JPEG into another (dropping). In addition a
 # bug in the treatment of EXIF data is solved and the EXIF data is
@@ -23,6 +23,7 @@ Source1:	http://jpegclub.org/droppatch.v8.tar.gz
 Source2:	http://jpegclub.org/jpegexiforient.c
 Source3:	http://jpegclub.org/exifautotran.txt
 Patch0:		jpeg-6b-c++fixes.patch
+Patch1:		jpeg-8d-borkfix.diff
 BuildRequires:	libtool
 
 %description
@@ -74,9 +75,10 @@ any text comments included in a JPEG file.  Wrjpgcom inserts text
 comments into a JPEG file.
 
 %prep
-%setup -q -n jpeg-8c -a1
+%setup -q -n jpeg-8d -a1
 rm -f jpegtran
 %patch0 -p0
+%patch1 -p0
 
 cp %{SOURCE2} jpegexiforient.c
 cp %{SOURCE3} exifautotran
