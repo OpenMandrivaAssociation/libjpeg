@@ -1,0 +1,37 @@
+--- transupp.c	2010-01-07 22:19:06.000000000 +0100
++++ transupp.c.oden	2012-05-25 09:42:08.150654326 +0200
+@@ -329,7 +329,7 @@ do_drop (j_decompress_ptr srcinfo, j_com
+ 	}
+       } else {
+ 	for (offset_y = 0; offset_y < compptr->v_samp_factor; offset_y++) {
+-	  jzero_far(dst_buffer[offset_y] + x_drop_blocks,
++	  FMEMZERO(dst_buffer[offset_y] + x_drop_blocks,
+ 		    comp_width * SIZEOF(JBLOCK));
+ 	} 	
+       }
+@@ -375,7 +375,7 @@ do_crop (j_decompress_ptr srcinfo, j_com
+ 	if (dst_blk_y < y_crop_blocks ||
+ 	    dst_blk_y >= comp_height + y_crop_blocks) {
+ 	  for (offset_y = 0; offset_y < compptr->v_samp_factor; offset_y++) {
+-	    jzero_far(dst_buffer[offset_y],
++	    FMEMZERO(dst_buffer[offset_y],
+ 		      compptr->width_in_blocks * SIZEOF(JBLOCK));
+ 	  }
+ 	  continue;
+@@ -393,14 +393,14 @@ do_crop (j_decompress_ptr srcinfo, j_com
+       for (offset_y = 0; offset_y < compptr->v_samp_factor; offset_y++) {
+ 	if (dstinfo->jpeg_width > srcinfo->output_width) {
+ 	  if (x_crop_blocks > 0) {
+-	    jzero_far(dst_buffer[offset_y],
++	    FMEMZERO(dst_buffer[offset_y],
+ 		      x_crop_blocks * SIZEOF(JBLOCK));
+ 	  }
+ 	  jcopy_block_row(src_buffer[offset_y],
+ 			  dst_buffer[offset_y] + x_crop_blocks,
+ 			  comp_width);
+ 	  if (compptr->width_in_blocks > comp_width + x_crop_blocks) {
+-	    jzero_far(dst_buffer[offset_y] +
++	    FMEMZERO(dst_buffer[offset_y] +
+ 			comp_width + x_crop_blocks,
+ 		      (compptr->width_in_blocks -
+ 			comp_width - x_crop_blocks) * SIZEOF(JBLOCK));
