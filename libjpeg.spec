@@ -1,15 +1,15 @@
-%define major 8
+%define major 9
 %define libname %mklibname jpeg %{major}
 %define develname %mklibname -d jpeg
 
 Summary:	A library for manipulating JPEG image format files
 Name:		libjpeg
-Version:	8d
+Version:	9
 Release:	1
 License:	GPL-like
 Group:		System/Libraries
 URL:		http://www.ijg.org/
-Source0:	http://www.ijg.org/files/jpegsrc.v8d.tar.gz
+Source0:	http://www.ijg.org/files/jpegsrc.v9.tar.gz
 # Modified source files for lossless cropping of JPEG files and for
 # lossless pasting of one JPEG into another (dropping). In addition a
 # bug in the treatment of EXIF data is solved and the EXIF data is
@@ -33,7 +33,7 @@ manipulating and saving JPEG format image files.
 Install the libjpeg package if you need to manipulate JPEG files. You
 should also install the jpeg-progs package.
 
-%package -n	%{libname}
+%package -n %{libname}
 Summary:	A library for manipulating JPEG image format files
 Group:		System/Libraries
 
@@ -41,7 +41,7 @@ Group:		System/Libraries
 This package contains the library needed to run programs dynamically
 linked with libjpeg.
 
-%package -n	%{develname}
+%package -n %{develname}
 Summary:	Development tools for programs which will use the libjpeg library
 Group:		Development/C
 Requires:	%{libname} = %{version}
@@ -59,7 +59,7 @@ If you are going to develop programs which will manipulate JPEG images,
 you should install libjpeg-devel.  You'll also need to have the libjpeg
 package installed.
 
-%package -n	jpeg-progs
+%package -n jpeg-progs
 Summary:	Programs for manipulating JPEG format image files
 Group:		Graphics
 Requires:	%{libname} = %{version}
@@ -75,7 +75,7 @@ any text comments included in a JPEG file.  Wrjpgcom inserts text
 comments into a JPEG file.
 
 %prep
-%setup -q -n jpeg-8d -a1
+%setup -q -n jpeg-9 -a1
 rm -f jpegtran
 %patch0 -p0
 %patch1 -p0
@@ -96,7 +96,6 @@ gcc %{optflags} -o jpegexiforient jpegexiforient.c
 LD_PRELOAD=$PWD/.libs/%{name}.so make test
 
 %install
-rm -rf %{buildroot}
 mkdir -p %{buildroot}/{%{_bindir},%{_libdir},%{_includedir},%{_mandir}/man1}
 
 #(neoclust) Provide jpegint.h because it is needed softwares

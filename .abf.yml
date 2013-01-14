@@ -1,5 +1,6 @@
+---
 sources:
-  "droppatch.v8.tar.gz:"	1f51f72abd4e14e9b10f999df7de849c3b539ec3
-  "exifautotran.txt:"	3086f24ccaa3e994ba40ec1d9a633a0aaa70e2be
-  "jpegexiforient.c:"	b28a27df7931da68285bd751f77712062f006e5a
-  "jpegsrc.v8d.tar.gz:"	f080b2fffc7581f7d19b968092ba9ebc234556ff
+  droppatch.v8.tar.gz: 1f51f72abd4e14e9b10f999df7de849c3b539ec3
+  exifautotran.txt: 3086f24ccaa3e994ba40ec1d9a633a0aaa70e2be
+  jpegexiforient.c: b28a27df7931da68285bd751f77712062f006e5a
+  jpegsrc.v9.tar.gz: 724987e7690ca3d74d6ab7c1f1b6854e88ca204b
