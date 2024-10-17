@@ -8,7 +8,7 @@ Version:	9
 Release:	1
 License:	GPL-like
 Group:		System/Libraries
-Url:		http://www.ijg.org/
+Url:		https://www.ijg.org/
 Source0:	http://www.ijg.org/files/jpegsrc.v9.tar.gz
 # Modified source files for lossless cropping of JPEG files and for
 # lossless pasting of one JPEG into another (dropping). In addition a
